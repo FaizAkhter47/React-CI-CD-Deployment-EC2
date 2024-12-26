@@ -1,0 +1,41 @@
+name: React CD Pipeline
+
+on:
+  workflow_run:
+    workflows:
+      - React CI Pipeline # Name of the CI workflow
+    types:
+      - completed # Trigger when CI workflow completes
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: production
+
+    steps:
+      # Step 1: Checkout the repository
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Step 2: Download artifact
+      - name: Download build artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: build # Name of the artifact uploaded in CI pipeline
+          
+          
+
+      # Step 3: Set up SSH
+      - name: Configure SSH access
+        uses: webfactory/ssh-agent@v0.5.4
+        with:
+          ssh-private-key: ${{ secrets.EC2_SSH_PRIVATE_KEY }} # Add your private key as a secret
+
+      # Step 4: Deploy to EC2
+      - name: Deploy to EC2
+        run: |
+          ssh -o StrictHostKeyChecking=no ec2-user@${{ secrets.EC2_INSTANCE_IP }} << 'EOF'
+          sudo rm -rf /var/www/html/*
+          sudo cp -r ./dist/* /var/www/html/
+          sudo systemctl restart nginx
+          EOF
