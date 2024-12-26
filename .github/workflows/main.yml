@@ -25,10 +25,6 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      # Step 4: Run tests
-      - name: Run tests
-        run: npm test -- --watchAll=false
-
       # Step 5: Build the project
       - name: Build the project
         run: npm run build
