@@ -33,8 +33,8 @@ jobs:
       - name: Upload build artifact
         uses: actions/upload-artifact@v3 # Correct way to use artifact action
         with:
-          name: build-artifact # Artifact name
-          path: dist/ # Path of the artifact to upload
+          name: build # Artifact name
+          path: dist # Path of the artifact to upload
 
 
 
