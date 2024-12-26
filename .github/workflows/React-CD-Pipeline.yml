@@ -22,8 +22,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: build # Name of the artifact uploaded in CI pipeline
-          run_id: ${{ github.event.workflow_run.id }}
-          github_token: ${{ github.token }}
+          
           
 
       # Step 3: Set up SSH
