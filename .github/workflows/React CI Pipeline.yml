@@ -29,6 +29,10 @@ jobs:
       - name: Build the project
         run: npm run build
 
+      - name: adding dist  
+        run: git add -f dist/
+
+
       # Step 5: Upload the build artifact
       - name: Upload build artifact
         uses: actions/upload-artifact@v3 # Correct way to use artifact action
