@@ -34,7 +34,7 @@ jobs:
         uses: actions/upload-artifact@v3 # Correct way to use artifact action
         with:
           name: build # Artifact name
-          path: dist # Path of the artifact to upload
+          path: ./dist # Path of the artifact to upload
 
 
 
